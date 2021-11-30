@@ -5,8 +5,9 @@ A small Vanilla JS utils alternative to jQuery.
 
 ## NPM
 
+```sh
 npm i boot-helpers
-
+```
 
 [https://www.npmjs.com/package/boot-helpers](https://www.npmjs.com/package/boot-helpers)
 
