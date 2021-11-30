@@ -66,5 +66,6 @@
       "plugin:@typescript-eslint/recommended"
     ]
   },
-  "dependencies": {}
+  "dependencies": {},
+  "author": "UIUX Lab"
 }
