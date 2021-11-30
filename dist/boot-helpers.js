@@ -3,7 +3,7 @@
  * 	Boot Helpers
  *
  * 	@source: https://github.com/xizon/boot-helpers
- * 	@version: 0.0.45 (November 30, 2021)
+ * 	@version: 0.0.46 (December 1, 2021)
  * 	@author: UIUX Lab <uiuxlab@gmail.com>
  * 	@license: MIT
  *
@@ -2185,7 +2185,7 @@ function getStyle(el, attr) {
 
     var newVal = /\d+/.exec(_val); // Array ["123"]
 
-    return newVal;
+    return parseFloat(newVal);
   } else {
     return 0;
   }

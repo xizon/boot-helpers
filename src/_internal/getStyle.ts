@@ -44,7 +44,7 @@ function getStyle( el, attr ) {
 
         //
         const newVal = /\d+/.exec( _val ); // Array ["123"]
-        return newVal;
+        return parseFloat(newVal as any);
 
     } else {
         return 0;

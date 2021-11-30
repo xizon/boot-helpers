@@ -1,6 +1,6 @@
 {
   "name": "boot-helpers",
-  "version": "0.0.45",
+  "version": "0.0.46",
   "description": "A small Vanilla JS utils alternative to jQuery.",
   "main": "dist/boot-helpers.js",
   "directories": {
