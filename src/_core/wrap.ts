@@ -7,10 +7,10 @@ import traverseIndex from '../_internal/traverseIndex';
 * @private
 *
 * @param  {String|Element} s       - The selector to search for or HTML element to wrap with functionality
-* @param  {?Element} root           - OPTIONAL An HTML element to start the element query from
-* @return {Array}                  - The collection of elements, wrapped with functionality (see API methods)
+* @param  {?Element} root          - OPTIONAL An HTML element to start the element query from
+* @return {NodeList}               - The collection of elements, wrapped with functionality (see API methods)
 */
-function selector(s, root?) {
+function nativeQuery(s, root?) {
 
     root = root || document;
 
@@ -51,9 +51,19 @@ function selector(s, root?) {
 
 
 
-
-
 /* ------------- Independent Methods (public) -------------- */
+/*
+* Return a prototype that extending by adding new methods
+* @public
+*
+* @return {Object.prototype}  
+*/
+if ( typeof(window['__fn']) !== 'undefined' ) {
+    window['__fn'].forEach( function(item) {
+        nativeQuery.prototype[item.name] = item.fn;
+    });
+}
+
 import ajax from '../_public/ajax';
 import browser from '../_public/browser';
 import cssProperty from '../_public/cssProperty';
@@ -73,24 +83,24 @@ import toSlug from '../_public/toSlug';
 import trim from '../_public/trim';
 import validate from '../_public/validate';
 
-selector.ajax = ajax;
-selector.browser = browser;
-selector.cssProperty = cssProperty;
-selector.debounce = debounce;
-selector.deepClone = deepClone;
-selector.GUID = GUID;
-selector.htmlDecode = htmlDecode;
-selector.htmlEncode = htmlEncode;
-selector.isTouchCapable = isTouchCapable;
-selector.lastUrlParamFormat = lastUrlParamFormat;
-selector.math = math;
-selector.removeFirstLastStr = removeFirstLastStr;
-selector.setDefaultOptions = setDefaultOptions;
-selector.styleFormat = styleFormat;
-selector.throttle = throttle;
-selector.toSlug = toSlug;
-selector.trim = trim;
-selector.validate = validate;
+nativeQuery.ajax = ajax;
+nativeQuery.browser = browser;
+nativeQuery.cssProperty = cssProperty;
+nativeQuery.debounce = debounce;
+nativeQuery.deepClone = deepClone;
+nativeQuery.GUID = GUID;
+nativeQuery.htmlDecode = htmlDecode;
+nativeQuery.htmlEncode = htmlEncode;
+nativeQuery.isTouchCapable = isTouchCapable;
+nativeQuery.lastUrlParamFormat = lastUrlParamFormat;
+nativeQuery.math = math;
+nativeQuery.removeFirstLastStr = removeFirstLastStr;
+nativeQuery.setDefaultOptions = setDefaultOptions;
+nativeQuery.styleFormat = styleFormat;
+nativeQuery.throttle = throttle;
+nativeQuery.toSlug = toSlug;
+nativeQuery.trim = trim;
+nativeQuery.validate = validate;
 
 
 
@@ -115,7 +125,7 @@ import $$not from '../not';
 import $$maxDimension from '../maxDimension';
 
 
-//functions
+//other methods
 import $$ready from '../ready';
 import $$loader from '../loader';
 import $$append from '../append';
@@ -163,142 +173,78 @@ import $$trigger from '../trigger';
 import $$animate from '../animate';
 
 //dom
-selector.prototype.find = $$find;
-selector.prototype.closest = $$closest;
-selector.prototype.prev = $$prev;
-selector.prototype.next = $$next;
-selector.prototype.parent = $$parent;
-selector.prototype.parents = $$parents;
-selector.prototype.children = $$children;
-selector.prototype.siblings = $$siblings;
+nativeQuery.prototype.find = $$find;
+nativeQuery.prototype.closest = $$closest;
+nativeQuery.prototype.prev = $$prev;
+nativeQuery.prototype.next = $$next;
+nativeQuery.prototype.parent = $$parent;
+nativeQuery.prototype.parents = $$parents;
+nativeQuery.prototype.children = $$children;
+nativeQuery.prototype.siblings = $$siblings;
 
 //traverse with index
-selector.prototype.each = $$each;
-selector.prototype.eq = $$eq;
-selector.prototype.first = $$first;
-selector.prototype.last = $$last;
-selector.prototype.filter = $$filter;
-selector.prototype.not = $$not;
-selector.prototype.maxDimension = $$maxDimension;
+nativeQuery.prototype.each = $$each;
+nativeQuery.prototype.eq = $$eq;
+nativeQuery.prototype.first = $$first;
+nativeQuery.prototype.last = $$last;
+nativeQuery.prototype.filter = $$filter;
+nativeQuery.prototype.not = $$not;
+nativeQuery.prototype.maxDimension = $$maxDimension;
 
 
-//functions
-selector.prototype.ready = $$ready;
-selector.prototype.loader = $$loader;
-selector.prototype.append = $$append;
-selector.prototype.prepend = $$prepend;
-selector.prototype.before = $$before;
-selector.prototype.after = $$after;
-selector.prototype.prependTo = $$prependTo;
-selector.prototype.appendTo = $$appendTo;
-selector.prototype.wrapInner = $$wrapInner;
-selector.prototype.html = $$html;	
-selector.prototype.text = $$text;		
-selector.prototype.clone = $$clone;
-selector.prototype.addClass = $$addClass;
-selector.prototype.removeClass = $$removeClass;
-selector.prototype.toggleClass = $$toggleClass;
-selector.prototype.css = $$css;
-selector.prototype.removeData = $$removeData;
-selector.prototype.attr = $$attr;
-selector.prototype.data = $$data;
-selector.prototype.prop = $$prop;
-selector.prototype.removeAttr = $$removeAttr;
-selector.prototype.one = $$one;
-selector.prototype.on = $$on;
-selector.prototype.off = $$off;
-selector.prototype.offset = $$offset;
-selector.prototype.position = $$position;		
-selector.prototype.scrollTop = $$scrollTop;
-selector.prototype.scrollLeft = $$scrollLeft;
-selector.prototype.width = $$width;
-selector.prototype.height = $$height;
-selector.prototype.outerWidth = $$outerWidth;
-selector.prototype.outerHeight = $$outerHeight;
-selector.prototype.remove = $$remove;
-selector.prototype.empty = $$empty;
-selector.prototype.allAttrs = $$allAttrs;
-selector.prototype.hasClass = $$hasClass;
-selector.prototype.val = $$val;
-selector.prototype.show = $$show;
-selector.prototype.hide = $$hide;
-selector.prototype.fadeIn = $$fadeIn;
-selector.prototype.fadeOut = $$fadeOut;
-selector.prototype.serializeArray = $$serializeArray;
-selector.prototype.index = $$getIndex;
-selector.prototype.trigger = $$trigger;
-selector.prototype.animate = $$animate;
+//other methods
+nativeQuery.prototype.ready = $$ready;
+nativeQuery.prototype.loader = $$loader;
+nativeQuery.prototype.append = $$append;
+nativeQuery.prototype.prepend = $$prepend;
+nativeQuery.prototype.before = $$before;
+nativeQuery.prototype.after = $$after;
+nativeQuery.prototype.prependTo = $$prependTo;
+nativeQuery.prototype.appendTo = $$appendTo;
+nativeQuery.prototype.wrapInner = $$wrapInner;
+nativeQuery.prototype.html = $$html;	
+nativeQuery.prototype.text = $$text;		
+nativeQuery.prototype.clone = $$clone;
+nativeQuery.prototype.addClass = $$addClass;
+nativeQuery.prototype.removeClass = $$removeClass;
+nativeQuery.prototype.toggleClass = $$toggleClass;
+nativeQuery.prototype.css = $$css;
+nativeQuery.prototype.removeData = $$removeData;
+nativeQuery.prototype.attr = $$attr;
+nativeQuery.prototype.data = $$data;
+nativeQuery.prototype.prop = $$prop;
+nativeQuery.prototype.removeAttr = $$removeAttr;
+nativeQuery.prototype.one = $$one;
+nativeQuery.prototype.on = $$on;
+nativeQuery.prototype.off = $$off;
+nativeQuery.prototype.offset = $$offset;
+nativeQuery.prototype.position = $$position;		
+nativeQuery.prototype.scrollTop = $$scrollTop;
+nativeQuery.prototype.scrollLeft = $$scrollLeft;
+nativeQuery.prototype.width = $$width;
+nativeQuery.prototype.height = $$height;
+nativeQuery.prototype.outerWidth = $$outerWidth;
+nativeQuery.prototype.outerHeight = $$outerHeight;
+nativeQuery.prototype.remove = $$remove;
+nativeQuery.prototype.empty = $$empty;
+nativeQuery.prototype.allAttrs = $$allAttrs;
+nativeQuery.prototype.hasClass = $$hasClass;
+nativeQuery.prototype.val = $$val;
+nativeQuery.prototype.show = $$show;
+nativeQuery.prototype.hide = $$hide;
+nativeQuery.prototype.fadeIn = $$fadeIn;
+nativeQuery.prototype.fadeOut = $$fadeOut;
+nativeQuery.prototype.serializeArray = $$serializeArray;
+nativeQuery.prototype.index = $$getIndex;
+nativeQuery.prototype.trigger = $$trigger;
+nativeQuery.prototype.animate = $$animate;
 
 
-const API = {
-    //dom
-    find: selector.prototype.find,
-    closest: selector.prototype.closest,
-    prev: selector.prototype.prev,
-    next: selector.prototype.next,
-    parent: selector.prototype.parent,
-    parents: selector.prototype.parents,
-    children: selector.prototype.children,
-    siblings: selector.prototype.siblings,
-
-    //traverse with index
-    each: selector.prototype.each,
-    eq: selector.prototype.eq,
-    first: selector.prototype.first,
-    last: selector.prototype.last,
-    filter: selector.prototype.filter,
-    not: selector.prototype.not,
-    maxDimension: selector.prototype.maxDimension,
-            
-
-    //functions
-    ready: selector.prototype.ready,
-    loader: selector.prototype.loader,
-    append: selector.prototype.append,
-    prepend: selector.prototype.prepend,
-    before: selector.prototype.before,
-    after: selector.prototype.after,
-    prependTo: selector.prototype.prependTo,
-    appendTo: selector.prototype.appendTo,
-    wrapInner: selector.prototype.wrapInner,
-    html: selector.prototype.html,	
-    text: selector.prototype.text,		
-    clone: selector.prototype.clone,
-    addClass: selector.prototype.addClass,
-    removeClass: selector.prototype.removeClass,
-    toggleClass: selector.prototype.toggleClass,
-    css: selector.prototype.css,
-    removeData: selector.prototype.removeData,
-    attr: selector.prototype.attr,
-    data: selector.prototype.data,
-    prop: selector.prototype.prop,
-    removeAttr: selector.prototype.removeAttr,
-    one: selector.prototype.one,
-    on: selector.prototype.on,
-    off: selector.prototype.off,
-    offset: selector.prototype.offset,
-    position: selector.prototype.position,		
-    scrollTop: selector.prototype.scrollTop,
-    scrollLeft: selector.prototype.scrollLeft,
-    width: selector.prototype.width,
-    height: selector.prototype.height,
-    outerWidth: selector.prototype.outerWidth,
-    outerHeight: selector.prototype.outerHeight,
-    remove: selector.prototype.remove,
-    empty: selector.prototype.empty,
-    allAttrs: selector.prototype.allAttrs,
-    hasClass: selector.prototype.hasClass,
-    val: selector.prototype.val,
-    show: selector.prototype.show,
-    hide: selector.prototype.hide,
-    fadeIn: selector.prototype.fadeIn,
-    fadeOut: selector.prototype.fadeOut,
-    serializeArray: selector.prototype.serializeArray,
-    index: selector.prototype.index,
-    trigger: selector.prototype.trigger,
-    animate: selector.prototype.animate
-    
-};
+const API = {};
+const fns = Object.values( nativeQuery.prototype );
+Object.keys( nativeQuery.prototype ).forEach(function( name, index ) {
+    API[name] = fns[index];
+});
 
 
 function wrap(list) {
@@ -357,11 +303,13 @@ function wrap(list) {
             // ////////////////////
             // Methods that return value is `DOM elements using selectors`
             //----------------------
+            const selectors = this;
+
             if (Array.isArray(this)) {
                 result = [];
-                this.forEach(function (root) {
+                this.forEach(function (eachSelector) {
 
-                    const fnResult = API[fn].apply(root, [].slice.call(args));
+                    const fnResult = API[fn].apply(eachSelector, [].slice.call(args));
                     if (Array.isArray(fnResult)) {
                         result = result.concat(fnResult);
                     } else if (fnResult !== undefined) {
@@ -453,4 +401,4 @@ function wrap(list) {
     return list;
 }
 
-export default selector; 
+export default nativeQuery; 

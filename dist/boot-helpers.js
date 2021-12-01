@@ -3,7 +3,7 @@
  * 	Boot Helpers
  *
  * 	@source: https://github.com/xizon/boot-helpers
- * 	@version: 0.0.46 (December 1, 2021)
+ * 	@version: 0.0.47 (December 1, 2021)
  * 	@author: UIUX Lab <uiuxlab@gmail.com>
  * 	@license: MIT
  *
@@ -126,6 +126,7 @@ function isJSON(str) {
 
 /*
 * Perform an asynchronous HTTP (Ajax) request.
+* @public
 *
 * @param  {Json} props   - The attribute and value to be set, the format is JSON
 * @return {Void} 
@@ -163,6 +164,7 @@ function ajax(props) {
 ;// CONCATENATED MODULE: ./src/_public/browser.ts
 /*
 * Determine whether it is a special browser
+* @public
 *
 * @return {Json}  - Boolean judgment collection of common browsers
 */
@@ -206,6 +208,7 @@ var browser = function () {
 
 /*
 * Get the CSS property
+* @public
 *
 * @description This function can be used separately in HTML pages or custom JavaScript.
 * @param  {!Element} el     - The Element for which to get the computed style. Using class name or ID to locate.
@@ -272,6 +275,7 @@ var cssProperty = function () {
 ;// CONCATENATED MODULE: ./src/_public/debounce.ts
 /*
 * Debounce
+* @public
 *
 * @param  {Function} fn    - A function to be executed within the time limit.
 * @param  {Number} limit   - Waiting time.
@@ -298,6 +302,7 @@ function debounce(fn) {
 
 /*
 *  Create a deep copy of the set of matched elements.
+* @public
 *
 * @param  {Object|Element} obj             - The array, JSON or HTML element to be copied.
 * @return {Object|Element}   
@@ -331,6 +336,7 @@ function deepClone(obj) {
 ;// CONCATENATED MODULE: ./src/_public/GUID.ts
 /*
 * Create GUID / UUID
+* @public
 *
 * @description This function can be used separately in HTML pages or custom JavaScript.
 * @return {String}                        - The globally-unique identifiers.
@@ -358,6 +364,7 @@ var GUID = function () {
 ;// CONCATENATED MODULE: ./src/_public/htmlDecode.ts
 /*
 *  HTML entities decode
+* @public
 *
 * @param {string} str          - Input text.
 * @return {string}             - Filtered text.
@@ -386,6 +393,7 @@ function htmlDecode(str) {
 ;// CONCATENATED MODULE: ./src/_public/htmlEncode.ts
 /*
 *  HTML entities encode.
+* @public
 *
 * @param {string} str          - Input text.
 * @return {string}             - Filtered text.
@@ -413,6 +421,7 @@ function htmlEncode(str) {
 ;// CONCATENATED MODULE: ./src/_public/isTouchCapable.ts
 /*
 * To determine if it is a touch screen.
+* @public
 *
 * @return {Boolean} 
 */
@@ -424,6 +433,7 @@ function isTouchCapable() {
 ;// CONCATENATED MODULE: ./src/_public/lastUrlParamFormat.ts
 /*
 * Capitalize the first letter of all words in a string
+* @public
 *
 * @param  {String} s                 - Any string.
 * @return {String}                   - A new string.
@@ -450,6 +460,7 @@ function lastUrlParamFormat(s) {
 ;// CONCATENATED MODULE: ./src/_public/math.ts
 /*
 * Evaluating a string as a mathematical expression in JavaScript
+* @public
 *
 * @description This function can be used separately in HTML pages or custom JavaScript.
 * @return {String}            - New calculation result.
@@ -571,6 +582,7 @@ var math = function () {
 ;// CONCATENATED MODULE: ./src/_public/removeFirstLastStr.ts
 /*
 * Remove first, last or both symbols
+* @public
 *
 * @param  {String} str       - Any string.
 * @param  {String} symbol    - The target string to remove.
@@ -621,6 +633,7 @@ function isValidNumeric(str) {
 
 /*
 *  Set a default JSON format configuration
+* @public
 *
 * @param  {Json} props         - Set some default keys and values.
 * @param  {Json} options       - A JSON variable passed in from outside, including key and value.
@@ -681,6 +694,7 @@ function toCamelCase(s) {
 ;// CONCATENATED MODULE: ./src/_public/trim.ts
 /*
 * Remove all spaces in the string
+* @public
 *
 * @param  {String} s                 - Any string.
 * @param  {Boolean} isGlobal         - If the value is `true`, remove all spaces including the middle
@@ -709,6 +723,7 @@ function trim(s) {
 
 /*
 * Convert HTML Element's `Style` Attribute to JSON
+* @public
 *
 * @param  {String} str   - The content of the style attribute in the HTML element, usually a string
 * @return {Json}     - An HTML element to a JSON object
@@ -746,6 +761,7 @@ function styleFormat(s) {
 ;// CONCATENATED MODULE: ./src/_public/throttle.ts
 /*
 * Throttle
+* @public
 *
 * @param  {Function} fn    - A function to be executed within the time limit.
 * @param  {Number} limit   - Waiting time.
@@ -770,6 +786,7 @@ function throttle(fn) {
 ;// CONCATENATED MODULE: ./src/_public/toSlug.ts
 /*
 * Convert a string to slug.
+* @public
 *
 * @param  {String} str            - Any string.
 * @return {String}                - A new string.
@@ -788,6 +805,7 @@ function toSlug(str) {
 
 /*
 * Object validation
+* @public
 *
 * @return {Boolean}  
 */
@@ -2750,11 +2768,11 @@ function animate(prop, from, to, unit, duration, easing, complete) {
 * @private
 *
 * @param  {String|Element} s       - The selector to search for or HTML element to wrap with functionality
-* @param  {?Element} root           - OPTIONAL An HTML element to start the element query from
-* @return {Array}                  - The collection of elements, wrapped with functionality (see API methods)
+* @param  {?Element} root          - OPTIONAL An HTML element to start the element query from
+* @return {NodeList}               - The collection of elements, wrapped with functionality (see API methods)
 */
 
-function selector(s, root) {
+function nativeQuery(s, root) {
   root = root || document;
 
   if (typeof s !== 'undefined') {
@@ -2786,6 +2804,19 @@ function selector(s, root) {
 }
 /* ------------- Independent Methods (public) -------------- */
 
+/*
+* Return a prototype that extending by adding new methods
+* @public
+*
+* @return {Object.prototype}  
+*/
+
+
+if (typeof window['__fn'] !== 'undefined') {
+  window['__fn'].forEach(function (item) {
+    nativeQuery.prototype[item.name] = item.fn;
+  });
+}
 
 
 
@@ -2805,24 +2836,24 @@ function selector(s, root) {
 
 
 
-selector.ajax = _public_ajax;
-selector.browser = _public_browser;
-selector.cssProperty = _public_cssProperty;
-selector.debounce = _public_debounce;
-selector.deepClone = _public_deepClone;
-selector.GUID = _public_GUID;
-selector.htmlDecode = _public_htmlDecode;
-selector.htmlEncode = _public_htmlEncode;
-selector.isTouchCapable = _public_isTouchCapable;
-selector.lastUrlParamFormat = _public_lastUrlParamFormat;
-selector.math = _public_math;
-selector.removeFirstLastStr = _public_removeFirstLastStr;
-selector.setDefaultOptions = _public_setDefaultOptions;
-selector.styleFormat = _public_styleFormat;
-selector.throttle = _public_throttle;
-selector.toSlug = _public_toSlug;
-selector.trim = _public_trim;
-selector.validate = _public_validate;
+nativeQuery.ajax = _public_ajax;
+nativeQuery.browser = _public_browser;
+nativeQuery.cssProperty = _public_cssProperty;
+nativeQuery.debounce = _public_debounce;
+nativeQuery.deepClone = _public_deepClone;
+nativeQuery.GUID = _public_GUID;
+nativeQuery.htmlDecode = _public_htmlDecode;
+nativeQuery.htmlEncode = _public_htmlEncode;
+nativeQuery.isTouchCapable = _public_isTouchCapable;
+nativeQuery.lastUrlParamFormat = _public_lastUrlParamFormat;
+nativeQuery.math = _public_math;
+nativeQuery.removeFirstLastStr = _public_removeFirstLastStr;
+nativeQuery.setDefaultOptions = _public_setDefaultOptions;
+nativeQuery.styleFormat = _public_styleFormat;
+nativeQuery.throttle = _public_throttle;
+nativeQuery.toSlug = _public_toSlug;
+nativeQuery.trim = _public_trim;
+nativeQuery.validate = _public_validate;
 /* ------------- Private Methods -------------- */
 //dom
 
@@ -2841,7 +2872,7 @@ selector.validate = _public_validate;
 
 
 
- //functions
+ //other methods
 
 
 
@@ -2889,133 +2920,73 @@ selector.validate = _public_validate;
 
  //dom
 
-selector.prototype.find = src_find;
-selector.prototype.closest = src_closest;
-selector.prototype.prev = src_prev;
-selector.prototype.next = src_next;
-selector.prototype.parent = src_parent;
-selector.prototype.parents = src_parents;
-selector.prototype.children = src_children;
-selector.prototype.siblings = src_siblings; //traverse with index
+nativeQuery.prototype.find = src_find;
+nativeQuery.prototype.closest = src_closest;
+nativeQuery.prototype.prev = src_prev;
+nativeQuery.prototype.next = src_next;
+nativeQuery.prototype.parent = src_parent;
+nativeQuery.prototype.parents = src_parents;
+nativeQuery.prototype.children = src_children;
+nativeQuery.prototype.siblings = src_siblings; //traverse with index
 
-selector.prototype.each = src_each;
-selector.prototype.eq = src_eq;
-selector.prototype.first = src_first;
-selector.prototype.last = src_last;
-selector.prototype.filter = src_filter;
-selector.prototype.not = src_not;
-selector.prototype.maxDimension = src_maxDimension; //functions
+nativeQuery.prototype.each = src_each;
+nativeQuery.prototype.eq = src_eq;
+nativeQuery.prototype.first = src_first;
+nativeQuery.prototype.last = src_last;
+nativeQuery.prototype.filter = src_filter;
+nativeQuery.prototype.not = src_not;
+nativeQuery.prototype.maxDimension = src_maxDimension; //other methods
 
-selector.prototype.ready = src_ready;
-selector.prototype.loader = src_loader;
-selector.prototype.append = src_append;
-selector.prototype.prepend = src_prepend;
-selector.prototype.before = src_before;
-selector.prototype.after = src_after;
-selector.prototype.prependTo = src_prependTo;
-selector.prototype.appendTo = src_appendTo;
-selector.prototype.wrapInner = src_wrapInner;
-selector.prototype.html = src_html;
-selector.prototype.text = src_text;
-selector.prototype.clone = src_clone;
-selector.prototype.addClass = src_addClass;
-selector.prototype.removeClass = src_removeClass;
-selector.prototype.toggleClass = src_toggleClass;
-selector.prototype.css = src_css;
-selector.prototype.removeData = src_removeData;
-selector.prototype.attr = src_attr;
-selector.prototype.data = src_data;
-selector.prototype.prop = src_prop;
-selector.prototype.removeAttr = src_removeAttr;
-selector.prototype.one = src_one;
-selector.prototype.on = src_on;
-selector.prototype.off = src_off;
-selector.prototype.offset = src_offset;
-selector.prototype.position = src_position;
-selector.prototype.scrollTop = src_scrollTop;
-selector.prototype.scrollLeft = src_scrollLeft;
-selector.prototype.width = src_width;
-selector.prototype.height = src_height;
-selector.prototype.outerWidth = src_outerWidth;
-selector.prototype.outerHeight = src_outerHeight;
-selector.prototype.remove = src_remove;
-selector.prototype.empty = src_empty;
-selector.prototype.allAttrs = src_allAttrs;
-selector.prototype.hasClass = src_hasClass;
-selector.prototype.val = src_val;
-selector.prototype.show = src_show;
-selector.prototype.hide = src_hide;
-selector.prototype.fadeIn = src_fadeIn;
-selector.prototype.fadeOut = src_fadeOut;
-selector.prototype.serializeArray = src_serializeArray;
-selector.prototype.index = src_getIndex;
-selector.prototype.trigger = src_trigger;
-selector.prototype.animate = src_animate;
-var API = {
-  //dom
-  find: selector.prototype.find,
-  closest: selector.prototype.closest,
-  prev: selector.prototype.prev,
-  next: selector.prototype.next,
-  parent: selector.prototype.parent,
-  parents: selector.prototype.parents,
-  children: selector.prototype.children,
-  siblings: selector.prototype.siblings,
-  //traverse with index
-  each: selector.prototype.each,
-  eq: selector.prototype.eq,
-  first: selector.prototype.first,
-  last: selector.prototype.last,
-  filter: selector.prototype.filter,
-  not: selector.prototype.not,
-  maxDimension: selector.prototype.maxDimension,
-  //functions
-  ready: selector.prototype.ready,
-  loader: selector.prototype.loader,
-  append: selector.prototype.append,
-  prepend: selector.prototype.prepend,
-  before: selector.prototype.before,
-  after: selector.prototype.after,
-  prependTo: selector.prototype.prependTo,
-  appendTo: selector.prototype.appendTo,
-  wrapInner: selector.prototype.wrapInner,
-  html: selector.prototype.html,
-  text: selector.prototype.text,
-  clone: selector.prototype.clone,
-  addClass: selector.prototype.addClass,
-  removeClass: selector.prototype.removeClass,
-  toggleClass: selector.prototype.toggleClass,
-  css: selector.prototype.css,
-  removeData: selector.prototype.removeData,
-  attr: selector.prototype.attr,
-  data: selector.prototype.data,
-  prop: selector.prototype.prop,
-  removeAttr: selector.prototype.removeAttr,
-  one: selector.prototype.one,
-  on: selector.prototype.on,
-  off: selector.prototype.off,
-  offset: selector.prototype.offset,
-  position: selector.prototype.position,
-  scrollTop: selector.prototype.scrollTop,
-  scrollLeft: selector.prototype.scrollLeft,
-  width: selector.prototype.width,
-  height: selector.prototype.height,
-  outerWidth: selector.prototype.outerWidth,
-  outerHeight: selector.prototype.outerHeight,
-  remove: selector.prototype.remove,
-  empty: selector.prototype.empty,
-  allAttrs: selector.prototype.allAttrs,
-  hasClass: selector.prototype.hasClass,
-  val: selector.prototype.val,
-  show: selector.prototype.show,
-  hide: selector.prototype.hide,
-  fadeIn: selector.prototype.fadeIn,
-  fadeOut: selector.prototype.fadeOut,
-  serializeArray: selector.prototype.serializeArray,
-  index: selector.prototype.index,
-  trigger: selector.prototype.trigger,
-  animate: selector.prototype.animate
-};
+nativeQuery.prototype.ready = src_ready;
+nativeQuery.prototype.loader = src_loader;
+nativeQuery.prototype.append = src_append;
+nativeQuery.prototype.prepend = src_prepend;
+nativeQuery.prototype.before = src_before;
+nativeQuery.prototype.after = src_after;
+nativeQuery.prototype.prependTo = src_prependTo;
+nativeQuery.prototype.appendTo = src_appendTo;
+nativeQuery.prototype.wrapInner = src_wrapInner;
+nativeQuery.prototype.html = src_html;
+nativeQuery.prototype.text = src_text;
+nativeQuery.prototype.clone = src_clone;
+nativeQuery.prototype.addClass = src_addClass;
+nativeQuery.prototype.removeClass = src_removeClass;
+nativeQuery.prototype.toggleClass = src_toggleClass;
+nativeQuery.prototype.css = src_css;
+nativeQuery.prototype.removeData = src_removeData;
+nativeQuery.prototype.attr = src_attr;
+nativeQuery.prototype.data = src_data;
+nativeQuery.prototype.prop = src_prop;
+nativeQuery.prototype.removeAttr = src_removeAttr;
+nativeQuery.prototype.one = src_one;
+nativeQuery.prototype.on = src_on;
+nativeQuery.prototype.off = src_off;
+nativeQuery.prototype.offset = src_offset;
+nativeQuery.prototype.position = src_position;
+nativeQuery.prototype.scrollTop = src_scrollTop;
+nativeQuery.prototype.scrollLeft = src_scrollLeft;
+nativeQuery.prototype.width = src_width;
+nativeQuery.prototype.height = src_height;
+nativeQuery.prototype.outerWidth = src_outerWidth;
+nativeQuery.prototype.outerHeight = src_outerHeight;
+nativeQuery.prototype.remove = src_remove;
+nativeQuery.prototype.empty = src_empty;
+nativeQuery.prototype.allAttrs = src_allAttrs;
+nativeQuery.prototype.hasClass = src_hasClass;
+nativeQuery.prototype.val = src_val;
+nativeQuery.prototype.show = src_show;
+nativeQuery.prototype.hide = src_hide;
+nativeQuery.prototype.fadeIn = src_fadeIn;
+nativeQuery.prototype.fadeOut = src_fadeOut;
+nativeQuery.prototype.serializeArray = src_serializeArray;
+nativeQuery.prototype.index = src_getIndex;
+nativeQuery.prototype.trigger = src_trigger;
+nativeQuery.prototype.animate = src_animate;
+var API = {};
+var fns = Object.values(nativeQuery.prototype);
+Object.keys(nativeQuery.prototype).forEach(function (name, index) {
+  API[name] = fns[index];
+});
 
 function wrap(list) {
   Object.keys(API).forEach(function (fn) {
@@ -3071,10 +3042,12 @@ function wrap(list) {
       //----------------------
 
 
+      var selectors = this;
+
       if (Array.isArray(this)) {
         result = [];
-        this.forEach(function (root) {
-          var fnResult = API[fn].apply(root, [].slice.call(args));
+        this.forEach(function (eachSelector) {
+          var fnResult = API[fn].apply(eachSelector, [].slice.call(args));
 
           if (Array.isArray(fnResult)) {
             result = result.concat(fnResult);
@@ -3116,7 +3089,7 @@ function wrap(list) {
   return list;
 }
 
-/* harmony default export */ const _core_wrap = (selector);
+/* harmony default export */ const _core_wrap = (nativeQuery);
 ;// CONCATENATED MODULE: ./src/_core/global.ts
 
 

@@ -1,6 +1,6 @@
 {
   "name": "boot-helpers",
-  "version": "0.0.46",
+  "version": "0.0.47",
   "description": "A small Vanilla JS utils alternative to jQuery.",
   "main": "dist/boot-helpers.js",
   "directories": {
@@ -24,9 +24,12 @@
     "url": "boot-helpers"
   },
   "keywords": [
-    "boot-helpers",
+    "javascript-library",
+    "dom-manipulation",
+    "vanilla-javascript",
     "library",
-    "vanilla-js"
+    "vanilla-js",
+    "jquery-alternative"
   ],
   "license": "MIT",
   "bugs": {
