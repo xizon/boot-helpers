@@ -1,5 +1,5 @@
 
-import $$ from '../src/_core/wrap';
+import __ from '../src/index';
 
 beforeAll(() => {
   document.body.innerHTML = `
@@ -16,14 +16,15 @@ describe('dom', () => {
 
   it('the node return value should be an array', () => {
 
-    const sel = $$( '.app' );
-    expect(Array.isArray(sel)).toBe(true);
+    const sel = __( '.app' );
+    expect(Array.isArray(sel)).toBe(false);
+    expect(Object.prototype.toString.call(sel) === "[object Object]").toBe(true);
   
   });
 
   it('the content of .app3 should be app3', () => {
 
-    const content = $$( '.app' ).eq(2).text();
+    const content = __( '.app' ).eq(2).text();
     expect(content).toBe('app3');
   
   });

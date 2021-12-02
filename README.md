@@ -19,6 +19,8 @@ All methods are below.
 
  - [ready()](#ready)
  - [loader()](#loader)
+ - [length()](#length)
+ - [get()](#get)
  - [append()](#append)
  - [prepend()](#prepend)
  - [before()](#before)
@@ -446,13 +448,16 @@ console.log( __.validate.isInt( '1421.231' ) ); //false
 console.log( __.validate.isJSON( '{"a":true}' ) ); //true	
 
 // Scroll spy
+const myFunc = function(){ console.log('throttle'); }
 const throttleFunc = __.throttle(myFunc, 300);
 window.removeEventListener('scroll', throttleFunc);
 window.removeEventListener('touchmove', throttleFunc);
 window.addEventListener('scroll', throttleFunc);
 window.addEventListener('touchmove', throttleFunc);
 
+
 // Click spy
+const myFunc = function(){ console.log('debounce'); }
 const debounceFunc = __.debounce(myFunc, 300);
 function handleClick() {
 	debounceFunc();
@@ -491,18 +496,13 @@ myFun( __( '.demo-trigger' ), {
 //+++++++++++++++++++++++++++++++++++++++++++
 // Create a new method inherit from the constructor's prototype.
 //+++++++++++++++++++++++++++++++++++++++++++
-
-// Declare the `window['__fn']` variable in window top javascript (before calling `__`)
-window['__fn'] = [
-	{ 
-		name: 'myPlugin',
-		fn: function( str ) {
-			this.innerHTML = str;
-		}
-	}
-];
-
-__( '.demo' ).myPlugin( 'text here!' );
+__.fn.myPlugin = function( color ) {
+	this.each( function(index) {
+		this.style.background = color;
+	});
+	return this;
+};
+__('body').myPlugin( '#f00' );
 
 
 ```
