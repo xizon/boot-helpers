@@ -6,7 +6,13 @@
  */
 function get(this: any, index) {
     let { elems } = this;
-    return elems[index];
+
+    if ( index === -1 ) {
+        //get all elements
+        return elems;
+    } else {
+        return elems[index];
+    }
 }
 
 export default get;

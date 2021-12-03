@@ -20,8 +20,13 @@ const Constructor = function (this: any, s, root?) {
     
     if ( Array.isArray(s) ) {
         //is array
-            // eg.  NodeList [li#demo1, li#demo2, li#demo3]
+        // eg.  [li#demo1, li#demo2, li#demo3]
+        // [ [li#demo1, li#demo2, li#demo3] ]
         //----------
+
+        // There may be Nested array, the array needs to be flattened
+        s = [].concat(...s);
+
         this.elems = s;
 
     } else {

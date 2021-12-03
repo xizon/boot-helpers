@@ -19,7 +19,7 @@ All methods are below.
 
  - [ready()](#ready)
  - [loader()](#loader)
- - [length()](#length)
+ - [len()](#len)
  - [get()](#get)
  - [append()](#append)
  - [prepend()](#prepend)
@@ -171,6 +171,9 @@ __( '.demo' ).remove();
 __( '.demo' ).empty();
 __( '.demo' ).show();
 __( '.demo' ).hide();
+__( '.demo' ).get(-1); //returns all elements
+__( '.demo' ).get(0); //returns someone element
+__( '.demo' ).len(); //returns length of elements
 __( '.demo' ).addClass( 'class-3' );
 __( '.demo, .demo2' ).addClass( 'class-4' );
 __( '.demo' ).find( 'li' ).addClass( 'class-1 class-2' );
@@ -281,8 +284,8 @@ function imgFn() {
 //+++++++++++++++++++++++++++++++++++++++++++
 console.log( '<h1> content: ' + __( 'h1' ).html());
 console.log( '<h1> content: ' + __( 'h1' ).text());
-console.log( 'len() of .menu li: ' + __( '.menu li' ).length );
-console.log( 'len() of #none: ' + __( '#none' ).length );
+console.log( 'length of .menu li: ' + __( '.menu li' ).len() );
+console.log( 'length of #none: ' + __( '#none' ).len() );
 console.log( 'width(): ' + __( '.demo' ).width() );
 console.log( 'outerWidth(): ' + __( '.demo' ).outerWidth() );
 console.log( 'outerWidth( true ): ' + __( '.demo' ).outerWidth(true) );

@@ -8,8 +8,7 @@ import $$ from './_core/instance';
  * @return {Array}              - The collection of elements
  */
 function find(this: any, s) {
-    const { storeSelector } = this;
-    let res = this;
+    let res = [];
 
     this.each(function (this: any) {
 
@@ -22,20 +21,24 @@ function find(this: any, s) {
             }
             s = s.replace(/(^\s*|,\s*)>/g, '$1#' + this.id + ' >');
 
-            const result = $$(s);
+            [].slice.call(document.querySelectorAll(s)).forEach(function(element){
+                res.push(element);
+            });
 
             if (removeId) {
                 this.id = null;
             }
 
-            res = result;
         } else {
 
-            res = $$(s, storeSelector.elems.id);
+            [].slice.call(this.querySelectorAll(s)).forEach(function(element){
+                res.push(element);
+            });
+
         }
     });
 
-    return res;
+    return $$(res);
 
 }
 

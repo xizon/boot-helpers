@@ -49,7 +49,7 @@ import $$maxDimension from '../maxDimension';
 
 //other methods
 import $$get from '../get';
-import $$length from '../length';
+import $$len from '../len';
 import $$ready from '../ready';
 import $$loader from '../loader';
 import $$append from '../append';
@@ -176,7 +176,7 @@ const __ = (function () {
 
     //other methods
     Constructor.prototype.get = $$get;
-    Constructor.prototype.length = $$length;
+    Constructor.prototype.len = $$len;
     Constructor.prototype.ready = $$ready;
     Constructor.prototype.loader = $$loader;
     Constructor.prototype.append = $$append;

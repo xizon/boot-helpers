@@ -3,7 +3,7 @@
  * 	Boot Helpers
  *
  * 	@source: https://github.com/xizon/boot-helpers
- * 	@version: 0.1.0 (December 3, 2021)
+ * 	@version: 0.1.1 (December 3, 2021)
  * 	@author: UIUX Lab <uiuxlab@gmail.com>
  * 	@license: MIT
  *
@@ -53,7 +53,50 @@ __webpack_require__.d(__webpack_exports__, {
   "default": () => (/* binding */ src)
 });
 
+;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/arrayLikeToArray.js
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+
+  return arr2;
+}
+;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/arrayWithoutHoles.js
+
+function _arrayWithoutHoles(arr) {
+  if (Array.isArray(arr)) return _arrayLikeToArray(arr);
+}
+;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/iterableToArray.js
+function _iterableToArray(iter) {
+  if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
+}
+;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/unsupportedIterableToArray.js
+
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+}
+;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/nonIterableSpread.js
+function _nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js
+
+
+
+
+function _toConsumableArray(arr) {
+  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
+}
 ;// CONCATENATED MODULE: ./src/_core/constructor.ts
+
+
 /**
  * Create the constructor (Wrap the selector)
  * @private
@@ -71,9 +114,14 @@ var Constructor = function Constructor(s, root) {
   root = root || document;
 
   if (Array.isArray(s)) {
+    var _ref;
+
     //is array
-    // eg.  NodeList [li#demo1, li#demo2, li#demo3]
+    // eg.  [li#demo1, li#demo2, li#demo3]
+    // [ [li#demo1, li#demo2, li#demo3] ]
     //----------
+    // There may be Nested array, the array needs to be flattened
+    s = (_ref = []).concat.apply(_ref, _toConsumableArray(s));
     this.elems = s;
   } else {
     //not array
@@ -886,8 +934,7 @@ var validate = function () {
  */
 
 function find(s) {
-  var storeSelector = this.storeSelector;
-  var res = this;
+  var res = [];
   this.each(function () {
     // The symbol ">" is not allowed at the beginning of the find() method.
     if (/(^\s*|,\s*)>/.test(s)) {
@@ -899,18 +946,20 @@ function find(s) {
       }
 
       s = s.replace(/(^\s*|,\s*)>/g, '$1#' + this.id + ' >');
-      var result = _core_instance(s);
+      [].slice.call(document.querySelectorAll(s)).forEach(function (element) {
+        res.push(element);
+      });
 
       if (removeId) {
         this.id = null;
       }
-
-      res = result;
     } else {
-      res = _core_instance(s, storeSelector.elems.id);
+      [].slice.call(this.querySelectorAll(s)).forEach(function (element) {
+        res.push(element);
+      });
     }
   });
-  return res;
+  return _core_instance(res);
 }
 
 /* harmony default export */ const src_find = (find);
@@ -1317,22 +1366,28 @@ function maxDimension() {
  */
 function get(index) {
   var elems = this.elems;
-  return elems[index];
+
+  if (index === -1) {
+    //get all elements
+    return elems;
+  } else {
+    return elems[index];
+  }
 }
 
 /* harmony default export */ const src_get = (get);
-;// CONCATENATED MODULE: ./src/length.ts
+;// CONCATENATED MODULE: ./src/len.ts
 /**
  * Returns the length of the node
  *
  * @return {Number} 
  */
-function length_length() {
+function len() {
   var elems = this.elems;
   return elems.length;
 }
 
-/* harmony default export */ const src_length = (length_length);
+/* harmony default export */ const src_len = (len);
 ;// CONCATENATED MODULE: ./src/ready.ts
 /**
  * Code included inside the code will run once the entire page (all DOM) is ready.
@@ -3120,7 +3175,7 @@ var __ = function () {
   Constructor.prototype.maxDimension = src_maxDimension; //other methods
 
   Constructor.prototype.get = src_get;
-  Constructor.prototype.length = src_length;
+  Constructor.prototype.len = src_len;
   Constructor.prototype.ready = src_ready;
   Constructor.prototype.loader = src_loader;
   Constructor.prototype.append = src_append;

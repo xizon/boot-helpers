@@ -3,10 +3,10 @@
  *
  * @return {Number} 
  */
- function length(this: any) {
+ function len(this: any) {
     let { elems } = this;
     return elems.length;
 }
 
 
-export default length;
+export default len;
