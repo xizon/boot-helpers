@@ -58,7 +58,7 @@ const webpackConfig = {
             {
                 test: /\.(js|ts)$/,
                 loader: 'babel-loader',
-                exclude: path.resolve( __dirname, 'node_modules' ),
+                exclude: path.resolve(__dirname, '../node_modules' ),
                 options: {  
 				  'presets': [
 					  '@babel/preset-env',
