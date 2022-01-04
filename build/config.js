@@ -29,12 +29,11 @@ const webpackConfig = {
 		'boot-helpers.min': path.resolve(__dirname, '../src/index.ts')
 	},
 	output: {
-	  library: {
-		name: 'BootHelpersLib',
-		type: 'var'
-	  },
-	  filename: '[name].js',
-	  path: path.resolve(__dirname, '../dist'),
+		library: {
+			type: 'commonjs'
+		},
+		filename: '[name].js',
+		path: path.resolve(__dirname, '../dist'),
 	},
 	/*
 	entry: path.resolve(__dirname, '../src/index.ts'),
