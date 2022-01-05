@@ -3,7 +3,7 @@
  * 	Boot Helpers
  *
  * 	@source: https://github.com/xizon/boot-helpers
- * 	@version: 0.1.2 (January 4, 2022)
+ * 	@version: 0.1.3 (January 5, 2022)
  * 	@author: UIUX Lab <uiuxlab@gmail.com>
  * 	@license: MIT
  *
@@ -53,50 +53,7 @@ __webpack_require__.d(__webpack_exports__, {
   "default": () => (/* binding */ src)
 });
 
-;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/arrayLikeToArray.js
-function _arrayLikeToArray(arr, len) {
-  if (len == null || len > arr.length) len = arr.length;
-
-  for (var i = 0, arr2 = new Array(len); i < len; i++) {
-    arr2[i] = arr[i];
-  }
-
-  return arr2;
-}
-;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/arrayWithoutHoles.js
-
-function _arrayWithoutHoles(arr) {
-  if (Array.isArray(arr)) return _arrayLikeToArray(arr);
-}
-;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/iterableToArray.js
-function _iterableToArray(iter) {
-  if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
-}
-;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/unsupportedIterableToArray.js
-
-function _unsupportedIterableToArray(o, minLen) {
-  if (!o) return;
-  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
-  var n = Object.prototype.toString.call(o).slice(8, -1);
-  if (n === "Object" && o.constructor) n = o.constructor.name;
-  if (n === "Map" || n === "Set") return Array.from(o);
-  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
-}
-;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/nonIterableSpread.js
-function _nonIterableSpread() {
-  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-}
-;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js
-
-
-
-
-function _toConsumableArray(arr) {
-  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
-}
 ;// CONCATENATED MODULE: ./src/_core/constructor.ts
-
-
 /**
  * Create the constructor (Wrap the selector)
  * @private
@@ -114,14 +71,12 @@ var Constructor = function Constructor(s, root) {
   root = root || document;
 
   if (Array.isArray(s)) {
-    var _ref;
-
     //is array
     // eg.  [li#demo1, li#demo2, li#demo3]
     // [ [li#demo1, li#demo2, li#demo3] ]
     //----------
     // There may be Nested array, the array needs to be flattened
-    s = (_ref = []).concat.apply(_ref, _toConsumableArray(s));
+    s = [].concat(...s);
     this.elems = s;
   } else {
     //not array
@@ -161,25 +116,7 @@ var instance = function instance(s, root) {
 };
 
 /* harmony default export */ const _core_instance = (instance);
-;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/typeof.js
-function _typeof(obj) {
-  "@babel/helpers - typeof";
-
-  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
-    _typeof = function _typeof(obj) {
-      return typeof obj;
-    };
-  } else {
-    _typeof = function _typeof(obj) {
-      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-    };
-  }
-
-  return _typeof(obj);
-}
 ;// CONCATENATED MODULE: ./src/_internal/isJSON.ts
-
-
 /*
 * Determine whether it is in JSON format
 * @private
@@ -196,7 +133,7 @@ function isJSON(str) {
       }
     }
   } else {
-    if (_typeof(str) === 'object' && Object.prototype.toString.call(str) === '[object Object]' && !str.length) {
+    if (typeof str === 'object' && Object.prototype.toString.call(str) === '[object Object]' && !str.length) {
       return true;
     } else {
       return false;
@@ -230,14 +167,12 @@ function ajax(props) {
       mode: 'cors',
       method: _method
     };
-    fetch(_url, config).then(function (response) {
-      return response.json();
-    }).then(function (result) {
+    fetch(_url, config).then(response => response.json()).then(result => {
       //console.log('Success:', result);
       if (_loadedFn && typeof _loadedFn == "function") {
         _loadedFn.call(self, result);
       }
-    })["catch"](function (error) {
+    }).catch(error => {
       console.error('Error:', error);
     });
   }
@@ -251,7 +186,7 @@ function ajax(props) {
 *
 * @return {Json}  - Boolean judgment collection of common browsers
 */
-var browser = function () {
+var browser = (() => {
   var browser = {};
 
   if (typeof navigator !== 'undefined') {
@@ -264,8 +199,8 @@ var browser = function () {
           supportsPassive = true;
         }
       });
-      window.addEventListener("testPassive", function (e) {}, opts);
-      window.removeEventListener("testPassive", function (e) {}, opts);
+      window.addEventListener("testPassive", e => {}, opts);
+      window.removeEventListener("testPassive", e => {}, opts);
     } catch (e) {}
 
     browser = {
@@ -283,12 +218,10 @@ var browser = function () {
   }
 
   return browser;
-}();
+})();
 
 /* harmony default export */ const _public_browser = (browser);
 ;// CONCATENATED MODULE: ./src/_public/cssProperty.ts
-
-
 /*
 * Get the CSS property
 * @public
@@ -297,7 +230,7 @@ var browser = function () {
 * @param  {!Element} el     - The Element for which to get the computed style. Using class name or ID to locate.
 * @return {String|Object}   - The value of property.
 */
-var cssProperty = function () {
+var cssProperty = (() => {
   function t() {}
 
   return t.version = "0.0.1",
@@ -308,7 +241,7 @@ var cssProperty = function () {
   * @return {Number}    - Returns a pure number.
   */
   t.getTransitionDuration = function (el) {
-    if (_typeof(el) === ( true ? "undefined" : 0)) {
+    if (typeof el === typeof undefined) {
       return 0;
     }
 
@@ -316,7 +249,7 @@ var cssProperty = function () {
         duration = style.webkitTransitionDuration,
         delay = style.webkitTransitionDelay;
 
-    if (_typeof(duration) != ( true ? "undefined" : 0)) {
+    if (typeof duration != typeof undefined) {
       // fix miliseconds vs seconds
       duration = duration.indexOf("ms") > -1 ? parseFloat(duration) : parseFloat(duration) * 1000;
       delay = delay.indexOf("ms") > -1 ? parseFloat(delay) : parseFloat(delay) * 1000;
@@ -352,7 +285,7 @@ var cssProperty = function () {
     };
   }, //
   t;
-}();
+})();
 
 /* harmony default export */ const _public_cssProperty = (cssProperty);
 ;// CONCATENATED MODULE: ./src/_public/debounce.ts
@@ -381,8 +314,6 @@ function debounce(fn) {
 ;
 /* harmony default export */ const _public_debounce = (debounce);
 ;// CONCATENATED MODULE: ./src/_public/deepClone.ts
-
-
 /*
 *  Create a deep copy of the set of matched elements.
 * @public
@@ -396,11 +327,11 @@ function deepClone(obj) {
   } else {
     var objClone = Array.isArray(obj) ? [] : {};
 
-    if (obj && _typeof(obj) === "object") {
+    if (obj && typeof obj === "object") {
       for (var key in obj) {
         if (obj.hasOwnProperty(key)) {
           //Determine whether the ojb child element is an object, if it is, copy it recursively
-          if (obj[key] && _typeof(obj[key]) === "object") {
+          if (obj[key] && typeof obj[key] === "object") {
             objClone[key] = deepClone(obj[key]);
           } else {
             //If not, simply copy
@@ -424,7 +355,7 @@ function deepClone(obj) {
 * @description This function can be used separately in HTML pages or custom JavaScript.
 * @return {String}                        - The globally-unique identifiers.
 */
-var GUID = function () {
+var GUID = (() => {
   function t() {}
 
   return t.version = "0.0.1",
@@ -441,7 +372,7 @@ var GUID = function () {
     });
   }, //
   t;
-}();
+})();
 
 /* harmony default export */ const _public_GUID = (GUID);
 ;// CONCATENATED MODULE: ./src/_public/htmlDecode.ts
@@ -548,7 +479,7 @@ function lastUrlParamFormat(s) {
 * @description This function can be used separately in HTML pages or custom JavaScript.
 * @return {String}            - New calculation result.
 */
-var math = function () {
+var math = (() => {
   function t() {}
 
   return t.version = "0.0.2",
@@ -659,7 +590,7 @@ var math = function () {
     };
   }, //
   t;
-}();
+})();
 
 /* harmony default export */ const _public_math = (math);
 ;// CONCATENATED MODULE: ./src/_public/removeFirstLastStr.ts
@@ -713,7 +644,6 @@ function isValidNumeric(str) {
 ;// CONCATENATED MODULE: ./src/_public/setDefaultOptions.ts
 
 
-
 /*
 *  Set a default JSON format configuration
 * @public
@@ -724,7 +654,7 @@ function isValidNumeric(str) {
 */
 
 function setDefaultOptions(props, options) {
-  if (_typeof(options) === ( true ? "undefined" : 0) || options === null || options === false) options = {}; //Set a default configuration
+  if (typeof options === typeof undefined || options === null || options === false) options = {}; //Set a default configuration
 
   if (_internal_isJSON(props)) {
     var defaultConfigValues = Object.values(props);
@@ -741,7 +671,7 @@ function setDefaultOptions(props, options) {
         }
       }); //
 
-      if (_typeof(options[prop]) === ( true ? "undefined" : 0) || options[prop] === null) options[prop] = defaultConfigValues[index];
+      if (typeof options[prop] === typeof undefined || options[prop] === null) options[prop] = defaultConfigValues[index];
     });
   }
 
@@ -893,7 +823,7 @@ function toSlug(str) {
 * @return {Boolean}  
 */
 
-var validate = function () {
+var validate = (() => {
   function t() {}
 
   return t.version = "0.0.1", t.isNumber = function (B) {
@@ -921,7 +851,7 @@ var validate = function () {
     return _internal_isJSON(A);
   }, //
   t;
-}();
+})();
 
 /* harmony default export */ const _public_validate = (validate);
 ;// CONCATENATED MODULE: ./src/find.ts
@@ -1198,7 +1128,9 @@ function siblings(s) {
 
 function each(fn) {
   if (fn && typeof fn == 'function') {
-    var elems = this.elems;
+    var {
+      elems
+    } = this;
     elems = Array.prototype.slice.call(elems);
     elems.forEach(function (element, index, array) {
       //If the ID does not exist, itemDomsStr cannot be obtained
@@ -1227,7 +1159,9 @@ function each(fn) {
 
 function eq(index) {
   var res = [];
-  var elems = this.elems;
+  var {
+    elems
+  } = this;
   elems = Array.prototype.slice.call(elems);
   elems.forEach(function (element, listIndex) {
     if (index === listIndex) res.push(element);
@@ -1246,7 +1180,9 @@ function eq(index) {
 
 function first() {
   var res = [];
-  var elems = this.elems;
+  var {
+    elems
+  } = this;
   elems = Array.prototype.slice.call(elems);
   elems.forEach(function (element, listIndex) {
     if (0 === listIndex) res.push(element);
@@ -1265,8 +1201,10 @@ function first() {
 
 function last() {
   var res = [];
-  var elems = this.elems,
-      storeSelector = this.storeSelector;
+  var {
+    elems,
+    storeSelector
+  } = this;
   var max = storeSelector.elems.length;
   elems = Array.prototype.slice.call(elems);
   elems.forEach(function (element, listIndex) {
@@ -1327,7 +1265,9 @@ function not(s) {
  * @return {Json}      - An object containing the properties width and height.
  */
 function maxDimension() {
-  var storeSelector = this.storeSelector;
+  var {
+    storeSelector
+  } = this;
   var res = {
     'height': 0,
     'width': 0
@@ -1365,7 +1305,9 @@ function maxDimension() {
  * @return {Element} 
  */
 function get(index) {
-  var elems = this.elems;
+  var {
+    elems
+  } = this;
 
   if (index === -1) {
     //get all elements
@@ -1383,7 +1325,9 @@ function get(index) {
  * @return {Number} 
  */
 function len() {
-  var elems = this.elems;
+  var {
+    elems
+  } = this;
   return elems.length;
 }
 
@@ -1409,7 +1353,6 @@ function ready(fn) {
 
 /* harmony default export */ const src_ready = (ready);
 ;// CONCATENATED MODULE: ./src/loader.ts
-
 
 /**
  * Detect when images and videos have been loaded. 
@@ -1494,7 +1437,7 @@ function loader(props) {
 
             img.onload = function (e) {
               //Compatible with safari and firefox
-              if (_typeof(e.path) === ( true ? "undefined" : 0)) {
+              if (typeof e.path === typeof undefined) {
                 return resolve(e.target.currentSrc);
               } else {
                 return resolve(e.path[0].currentSrc);
@@ -1511,7 +1454,7 @@ function loader(props) {
             var video = document.createElement('video');
             video.addEventListener("loadedmetadata", function (e) {
               //Compatible with safari and firefox
-              if (_typeof(e.path) === ( true ? "undefined" : 0)) {
+              if (typeof e.path === typeof undefined) {
                 return resolve(e.target.currentSrc);
               } else {
                 return resolve(e.path[0].currentSrc);
@@ -2178,7 +2121,7 @@ function on(eventType, selector, fn, once) {
       this.myListeners.push({
         eType: eventType,
         callBack: _curFun,
-        "function": fn,
+        function: fn,
         selector: selector
       });
     } else {
@@ -2190,7 +2133,7 @@ function on(eventType, selector, fn, once) {
       this.myListeners.push({
         eType: eventType,
         callBack: _curFun,
-        "function": fn,
+        function: fn,
         selector: selector
       });
     }
@@ -2222,7 +2165,7 @@ function off(eventType, curSelector) {
         if (typeof curSelector !== 'undefined') {
           if (typeof curSelector === 'function') {
             //is function
-            if (curSelector === this.myListeners[i]["function"]) this.removeEventListener(this.myListeners[i].eType, this.myListeners[i].callBack);
+            if (curSelector === this.myListeners[i].function) this.removeEventListener(this.myListeners[i].eType, this.myListeners[i].callBack);
           } else {
             //is string
             if (curSelector === this.myListeners[i].selector) this.removeEventListener(this.myListeners[i].eType, this.myListeners[i].callBack);
@@ -2602,9 +2545,9 @@ function allAttrs() {
   var res = [];
   this.each(function () {
     var newArr = [];
-    Array.from(this.attributes).filter(function (obj) {
+    Array.from(this.attributes).filter(obj => {
       return obj.specified;
-    }).map(function (obj) {
+    }).map(obj => {
       newArr[obj.nodeName] = obj.textContent;
     });
     res = newArr;
@@ -2833,8 +2776,6 @@ function fadeOut(speed, callback) {
 
 /* harmony default export */ const src_fadeOut = (fadeOut);
 ;// CONCATENATED MODULE: ./src/serializeArray.ts
-
-
 /**
  * Serialize html form to JSON
  *
@@ -2846,9 +2787,9 @@ function serializeArray() {
     var form = this;
     var objects = [];
 
-    if (_typeof(form) == 'object' && form.nodeName.toLowerCase() == "form") {
+    if (typeof form == 'object' && form.nodeName.toLowerCase() == "form") {
       var fieldsTypes = ['input', 'textarea', 'select', 'checkbox', 'progress', 'datalist'];
-      fieldsTypes.map(function (item, index) {
+      fieldsTypes.map((item, index) => {
         var fields = form.getElementsByTagName(item);
 
         for (var i = 0; i < fields.length; i++) {

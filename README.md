@@ -116,6 +116,7 @@ $ npm run test
 
 In Browser:
 ```html
+<script>const exports = {"__esModule": true};</script>
 <script src="boot-helpers.min.js"></script>
 ```
 

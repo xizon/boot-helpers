@@ -59,10 +59,12 @@ const webpackConfig = {
                 loader: 'babel-loader',
                 exclude: path.resolve(__dirname, '../node_modules' ),
                 options: {  
-				  'presets': [
-					  '@babel/preset-env',
-					  '@babel/preset-typescript'  
-				  ]
+					'presets': [
+						["@babel/preset-env", {
+							"targets": { "esmodules": true }
+						}],
+						'@babel/preset-typescript'
+					]
                 }
 			},
         ],
