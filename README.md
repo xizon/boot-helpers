@@ -118,16 +118,16 @@ In Browser:
 ```html
 <script>const exports = {"__esModule": true};</script>
 <script src="boot-helpers.min.js"></script>
+<script>
+	__(selector).someMethod();
+</script>
 ```
 or 
 ```html
 <script src="boot-helpers.production.min.js"></script>
-```
-
-
-
-```js
-__(selector).someMethod();
+<script>
+	__(selector).someMethod();
+</script>
 ```
 
 
