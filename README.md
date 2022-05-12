@@ -119,6 +119,12 @@ In Browser:
 <script>const exports = {"__esModule": true};</script>
 <script src="boot-helpers.min.js"></script>
 ```
+or 
+```html
+<script src="boot-helpers.production.min.js"></script>
+```
+
+
 
 ```js
 __(selector).someMethod();
