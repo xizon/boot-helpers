@@ -1,5 +1,10 @@
-# boot-helpers
+# BootHelpers
   
+<p align="center">
+  <img src="logo.png"  alt="BootHelpers"  width="180" >
+</p>
+
+
 A small Vanilla JS utils alternative to jQuery.
 
 
