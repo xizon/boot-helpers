@@ -83,3 +83,8 @@ typings/
 
 # Webstorm Project
 .idea/
+
+
+#lib
+lib/
+publish/

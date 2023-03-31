@@ -3,12 +3,22 @@
  * 	Boot Helpers
  *
  * 	@source: https://github.com/xizon/boot-helpers
- * 	@version: 0.1.3 (January 5, 2022)
+ * 	@version: 0.1.4 (March 31, 2023)
  * 	@author: UIUX Lab <uiuxlab@gmail.com>
  * 	@license: MIT
  *
  */
-/******/ (() => { // webpackBootstrap
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define([], factory);
+	else if(typeof exports === 'object')
+		exports["_$"] = factory();
+	else
+		root["_$"] = factory();
+})(this, () => {
+return /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
 /******/ 	// The require scope
 /******/ 	var __webpack_require__ = {};
@@ -3177,9 +3187,8 @@ var __ = function () {
 
 /* harmony default export */ const src = (global);
 
-var __webpack_export_target__ = exports;
-for(var i in __webpack_exports__) __webpack_export_target__[i] = __webpack_exports__[i];
-if(__webpack_exports__.__esModule) Object.defineProperty(__webpack_export_target__, "__esModule", { value: true });
+/******/ 	return __webpack_exports__;
 /******/ })()
 ;
-//# sourceMappingURL=dist/boot-helpers.js.map
+});
+//# sourceMappingURL=dist/boot-helpers.cjs.js.map

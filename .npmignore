@@ -91,3 +91,4 @@ tsconfig.json
 babel.config.js
 test/
 build/
+src/

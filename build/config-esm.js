@@ -16,32 +16,31 @@ const devMode = process.env.NODE_ENV !== 'production';
 const webpackConfig = {
 	devtool: devMode ? 'source-map' : false,
     mode: devMode === 'development' ? 'development' : 'production',
-	watch: true,
+	watch: false,
     resolve: {
-		fallback: {
-		    fs: false
-		},
-        extensions: ['.js', '.ts'],
+        fallback: {
+            fs: false
+        },
+        extensions: ['.js','.ts']
     },
-	
-	entry: {
+
+    entry: {
 		'boot-helpers': path.resolve(__dirname, '../src/index.ts'),
 		'boot-helpers.min': path.resolve(__dirname, '../src/index.ts')
-	},
-	output: {
-		library: {
-			type: 'commonjs'
-		},
-		filename: '[name].js',
+    },
+
+    experiments: {
+        outputModule: true,
+    },
+    output: {
+        library: {
+            // do not specify a `name` here
+            type: 'module',
+        },
+		filename: '[name].esm.js',
 		path: path.resolve(__dirname, '../dist'),
 	},
-	/*
-	entry: path.resolve(__dirname, '../src/index.ts'),
-	output: {
-	  filename: 'boot-helpers.js',
-	  path: path.resolve(__dirname, '../dist'),
-	},
-	*/
+
 	optimization: {
 		minimize: true,
 	    minimizer: [

@@ -1,8 +1,8 @@
 {
   "name": "boot-helpers",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "A small Vanilla JS utils alternative to jQuery.",
-  "main": "dist/boot-helpers.js",
+  "main": "dist/boot-helpers.esm.js",
   "directories": {
     "test": "test"
   },
@@ -15,8 +15,8 @@
   },
   "scripts": {
     "check": "tsc",
-    "dev": "cross-env NODE_ENV=development webpack --progress --mode development --config build/config.js",
-    "build": "cross-env NODE_ENV=production webpack --progress --mode production --config build/config.js",
+    "dev": "cross-env NODE_ENV=development webpack --progress --mode development --config build/config-cjs.js && cross-env NODE_ENV=development webpack --progress --mode development --config build/config-esm.js",
+    "build": "cross-env NODE_ENV=production webpack --progress --mode production --config build/config-cjs.js && cross-env NODE_ENV=production webpack --progress --mode production --config build/config-esm.js",
     "test": "cross-env NODE_ENV=test jest"
   },
   "repository": {
@@ -56,8 +56,8 @@
     "ts-jest": "^27.0.4",
     "ts-node": "^10.1.0",
     "typescript": "^4.3.5",
-    "webpack": "^5.47.1",
-    "webpack-cli": "^3.3.12"
+    "webpack": "^5.77.0",
+    "webpack-cli": "^5.0.1"
   },
   "eslintConfig": {
     "parserOptions": {
@@ -69,6 +69,7 @@
       "plugin:@typescript-eslint/recommended"
     ]
   },
-  "dependencies": {},
-  "author": "UIUX Lab"
+  "author": "UIUX Lab",
+  "types": "./dist/boot-helpers.esm.d.ts",
+  "dependencies": {}
 }

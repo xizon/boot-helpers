@@ -108,6 +108,7 @@ To use webpack to bundle files.
 
 ```sh
 $ npm run build
+$ npx -p typescript tsc dist/*.js --declaration --allowJs --emitDeclarationOnly --outDir dist
 ```
 
 Unit Testing
@@ -119,29 +120,43 @@ $ npm run test
 ## Usage:
 
 
-In Browser:
+### a) In Browser:
 ```html
-<script>const exports = {"__esModule": true};</script>
-<script src="boot-helpers.min.js"></script>
-<script>
-	__(selector).someMethod();
-</script>
-```
-or 
-```html
-<script src="boot-helpers.production.min.js"></script>
+<script src="boot-helpers.min.cjs.js"></script>
 <script>
 	__(selector).someMethod();
 </script>
 ```
 
-
-In Node.js:
+### b) In Node.js:
 ```js
 import __ from 'boot-helpers';
 
 __(selector).someMethod();
 ```
+
+or 
+
+```js
+const __ = require('boot-helpers').default;
+
+__(selector).someMethod();
+```
+
+or 
+
+```js
+// for TypeScript
+import 'boot-helpers';
+declare global {
+    interface Window { __: any; }
+}
+const __ = window['__'];
+
+__(selector).someMethod();
+```
+
+
 
 
 ## Example:
