@@ -3,7 +3,7 @@
  * 	Boot Helpers
  *
  * 	@source: https://github.com/xizon/boot-helpers
- * 	@version: 0.1.4 (March 31, 2023)
+ * 	@version: 0.1.5 (March 31, 2023)
  * 	@author: UIUX Lab <uiuxlab@gmail.com>
  * 	@license: MIT
  *
@@ -14,9 +14,9 @@
 	else if(typeof define === 'function' && define.amd)
 		define([], factory);
 	else if(typeof exports === 'object')
-		exports["_$"] = factory();
+		exports["__"] = factory();
 	else
-		root["_$"] = factory();
+		root["__"] = factory();
 })(this, () => {
 return /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
@@ -3191,4 +3191,4 @@ var __ = function () {
 /******/ })()
 ;
 });
-//# sourceMappingURL=dist/boot-helpers.cjs.js.map
+//# sourceMappingURL=dist/boot-helpers.js.map

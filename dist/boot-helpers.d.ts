@@ -1,3 +1,3 @@
 export var __esModule: boolean;
-declare const _$: {};
+declare const __: {};
 export {};

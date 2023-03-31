@@ -29,17 +29,14 @@ const webpackConfig = {
 		'boot-helpers.min': path.resolve(__dirname, '../src/index.ts')
     },
 
-    experiments: {
-        outputModule: true,
-    },
     output: {
-        library: {
-            // do not specify a `name` here
-            type: 'module',
-        },
-		filename: '[name].esm.js',
-		path: path.resolve(__dirname, '../dist'),
-	},
+        globalObject: 'this',
+        library: "__",
+        libraryTarget: "umd",
+        filename: '[name].js',
+        path: path.resolve(__dirname, '../dist')
+    },
+
 
 	optimization: {
 		minimize: true,

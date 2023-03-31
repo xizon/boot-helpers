@@ -87,71 +87,44 @@ All methods are below.
 
 
 
-## Installation And Test
-
-You will need to have [node](https://nodejs.org/) setup on your machine. That will output the built distributables to `./dist/*`.
-
-
-Before doing all dev stuff make sure you have `Node 14+` installed. After that, run the following code in the main directory to install the node module dependencies.
-
-```sh
-$ sudo npm install
-```
-
-Debug application. It can be checked separately as TypeScript without compiling and packaging behavior.
-
-```sh
-$ npm run check
-```
-
-To use webpack to bundle files.
-
-```sh
-$ npm run build
-$ npx -p typescript tsc dist/*.js --declaration --allowJs --emitDeclarationOnly --outDir dist
-```
-
-Unit Testing
-
-```sh
-$ npm run test
-```
-
 ## Usage:
 
 
 ### a) In Browser:
 ```html
-<script src="boot-helpers.min.cjs.js"></script>
+<script src="boot-helpers.min.js"></script>
 <script>
+    const __ = window['__']['default'];
+    
 	__(selector).someMethod();
 </script>
 ```
 
 ### b) In Node.js:
 ```js
-import __ from 'boot-helpers';
+import 'boot-helpers';
+const __ = window['__'];
 
 __(selector).someMethod();
 ```
 
-or 
+OR
 
 ```js
-const __ = require('boot-helpers').default;
+const { __ } = require('boot-helpers');
 
 __(selector).someMethod();
 ```
 
-or 
+
+### c) In Node.js (for TypeScript):
 
 ```js
-// for TypeScript
 import 'boot-helpers';
 declare global {
     interface Window { __: any; }
 }
-const __ = window['__'];
+const __ = typeof window !== 'undefined' ? window['__'] : ()=> void 0;
 
 __(selector).someMethod();
 ```
@@ -535,6 +508,38 @@ __.fn.myPlugin = function( color ) {
 __('body').myPlugin( '#f00' );
 
 
+```
+
+
+
+## Installation And Test
+
+You will need to have [node](https://nodejs.org/) setup on your machine. That will output the built distributables to `./dist/*`.
+
+
+Before doing all dev stuff make sure you have `Node 14+` installed. After that, run the following code in the main directory to install the node module dependencies.
+
+```sh
+$ sudo npm install
+```
+
+Debug application. It can be checked separately as TypeScript without compiling and packaging behavior.
+
+```sh
+$ npm run check
+```
+
+To use webpack to bundle files.
+
+```sh
+$ npm run build
+$ npx -p typescript tsc dist/*.js --declaration --allowJs --emitDeclarationOnly --outDir dist
+```
+
+Unit Testing
+
+```sh
+$ npm run test
 ```
 
 

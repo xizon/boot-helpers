@@ -1,8 +1,8 @@
 {
   "name": "boot-helpers",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "A small Vanilla JS utils alternative to jQuery.",
-  "main": "dist/boot-helpers.esm.js",
+  "main": "dist/boot-helpers.js",
   "directories": {
     "test": "test"
   },
@@ -15,8 +15,8 @@
   },
   "scripts": {
     "check": "tsc",
-    "dev": "cross-env NODE_ENV=development webpack --progress --mode development --config build/config-cjs.js && cross-env NODE_ENV=development webpack --progress --mode development --config build/config-esm.js",
-    "build": "cross-env NODE_ENV=production webpack --progress --mode production --config build/config-cjs.js && cross-env NODE_ENV=production webpack --progress --mode production --config build/config-esm.js",
+    "dev": "cross-env NODE_ENV=development webpack --progress --mode development --config build/config.js",
+    "build": "cross-env NODE_ENV=production webpack --progress --mode production --config build/config.js",
     "test": "cross-env NODE_ENV=test jest"
   },
   "repository": {
@@ -70,6 +70,6 @@
     ]
   },
   "author": "UIUX Lab",
-  "types": "./dist/boot-helpers.esm.d.ts",
+  "types": "./dist/boot-helpers.d.ts",
   "dependencies": {}
 }
