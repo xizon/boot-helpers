@@ -70,6 +70,5 @@
     ]
   },
   "author": "UIUX Lab",
-  "types": "./dist/boot-helpers.d.ts",
-  "dependencies": {}
+  "types": "./dist/boot-helpers.d.ts"
 }
