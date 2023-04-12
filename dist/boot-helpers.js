@@ -3,7 +3,7 @@
  * 	Boot Helpers
  *
  * 	@source: https://github.com/xizon/boot-helpers
- * 	@version: 0.1.5 (March 31, 2023)
+ * 	@version: 0.1.6 (April 12, 2023)
  * 	@author: UIUX Lab <uiuxlab@gmail.com>
  * 	@license: MIT
  *
@@ -2803,10 +2803,20 @@ function serializeArray() {
         var fields = form.getElementsByTagName(item);
 
         for (var i = 0; i < fields.length; i++) {
-          objects[objects.length] = {
-            name: fields[i].getAttribute("name"),
-            value: fields[i].value
-          };
+          //if checkbox or radio
+          if (fields[i].type === 'radio' || fields[i].type === 'checkbox') {
+            if (fields[i].checked === true) {
+              objects[objects.length] = {
+                name: fields[i].getAttribute("name"),
+                value: fields[i].value
+              };
+            }
+          } else {
+            objects[objects.length] = {
+              name: fields[i].getAttribute("name"),
+              value: fields[i].value
+            };
+          }
         }
       });
     }
