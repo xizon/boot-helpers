@@ -3,7 +3,7 @@
  * 	Boot Helpers
  *
  * 	@source: https://github.com/xizon/boot-helpers
- * 	@version: 0.1.6 (April 12, 2023)
+ * 	@version: 0.1.7 (May 3, 2023)
  * 	@author: UIUX Lab <uiuxlab@gmail.com>
  * 	@license: MIT
  *
@@ -2789,39 +2789,61 @@ function fadeOut(speed, callback) {
 /**
  * Serialize html form to JSON
  *
+ * @param  {Array} types   - An array of field strings.
  * @return {Array}     - A collection of JSON arrays
  */
 function serializeArray() {
+  var types = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : ['input', 'textarea', 'select', 'checkbox', 'progress', 'datalist'];
   var res = [];
   this.each(function () {
     var form = this;
     var objects = [];
 
     if (typeof form == 'object' && form.nodeName.toLowerCase() == "form") {
-      var fieldsTypes = ['input', 'textarea', 'select', 'checkbox', 'progress', 'datalist'];
+      var fieldsTypes = types;
       fieldsTypes.map((item, index) => {
         var fields = form.getElementsByTagName(item);
 
         for (var i = 0; i < fields.length; i++) {
-          //if checkbox or radio
+          var _name = fields[i].getAttribute("name");
+
+          var _value = fields[i].value; // if field is Array
+
+          if (_name !== null && _name.match(/[a-z0-9_]+|(?=\[\])/gi)) {
+            // foo[], foo[n]
+            var inputs = form.querySelectorAll("[name='" + _name + "']");
+            var _arrFieldValue = [];
+
+            for (var j = 0; j < inputs.length; j++) {
+              var _arrField = inputs[j];
+
+              _arrFieldValue.push(_arrField.value);
+            }
+
+            _value = _arrFieldValue;
+          } //if checkbox or radio
+
+
           if (fields[i].type === 'radio' || fields[i].type === 'checkbox') {
             if (fields[i].checked === true) {
               objects[objects.length] = {
-                name: fields[i].getAttribute("name"),
-                value: fields[i].value
+                name: _name,
+                value: _value
               };
             }
           } else {
             objects[objects.length] = {
-              name: fields[i].getAttribute("name"),
-              value: fields[i].value
+              name: _name,
+              value: _value
             };
           }
         }
       });
-    }
+    } // remove Duplicate objects from JSON Array
 
-    res = objects;
+
+    var clean = objects.filter((item, index, self) => index === self.findIndex(t => t.name === item.name));
+    res = clean;
   });
   return res;
 }
