@@ -23,7 +23,7 @@
                     let _value: any = fields[i].value;
 
                     // if field is Array
-                    if ( _name !== null && _name.match(/[a-z0-9_]+|(?=\[\])/gi) ) {
+                    if ( _name !== null && _name.match(/(\[.*?\])/gi) ) {
 
                         // foo[], foo[n]
                         const inputs = form.querySelectorAll("[name='"+_name+"']");

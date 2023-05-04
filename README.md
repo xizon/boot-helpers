@@ -520,7 +520,7 @@ You will need to have [node](https://nodejs.org/) setup on your machine. That wi
 Before doing all dev stuff make sure you have `Node 14+` installed. After that, run the following code in the main directory to install the node module dependencies.
 
 ```sh
-$ sudo npm install
+$ npm install
 ```
 
 Debug application. It can be checked separately as TypeScript without compiling and packaging behavior.

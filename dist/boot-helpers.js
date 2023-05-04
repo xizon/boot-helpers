@@ -3,7 +3,7 @@
  * 	Boot Helpers
  *
  * 	@source: https://github.com/xizon/boot-helpers
- * 	@version: 0.1.7 (May 3, 2023)
+ * 	@version: 0.1.8 (May 4, 2023)
  * 	@author: UIUX Lab <uiuxlab@gmail.com>
  * 	@license: MIT
  *
@@ -2809,7 +2809,7 @@ function serializeArray() {
 
           var _value = fields[i].value; // if field is Array
 
-          if (_name !== null && _name.match(/[a-z0-9_]+|(?=\[\])/gi)) {
+          if (_name !== null && _name.match(/(\[.*?\])/gi)) {
             // foo[], foo[n]
             var inputs = form.querySelectorAll("[name='" + _name + "']");
             var _arrFieldValue = [];
