@@ -3,7 +3,7 @@
  * 	Boot Helpers
  *
  * 	@source: https://github.com/xizon/boot-helpers
- * 	@version: 0.1.8 (May 4, 2023)
+ * 	@version: 0.2.0 (May 27, 2023)
  * 	@author: UIUX Lab <uiuxlab@gmail.com>
  * 	@license: MIT
  *
@@ -2815,9 +2815,13 @@ function serializeArray() {
             var _arrFieldValue = [];
 
             for (var j = 0; j < inputs.length; j++) {
-              var _arrField = inputs[j];
+              var _arrField = inputs[j]; //if checkbox or radio
 
-              _arrFieldValue.push(_arrField.value);
+              if (_arrField.type === 'radio' || _arrField.type === 'checkbox') {
+                _arrFieldValue.push(_arrField.checked == true ? _arrField.value : '');
+              } else {
+                _arrFieldValue.push(_arrField.value);
+              }
             }
 
             _value = _arrFieldValue;
@@ -2825,12 +2829,10 @@ function serializeArray() {
 
 
           if (fields[i].type === 'radio' || fields[i].type === 'checkbox') {
-            if (fields[i].checked === true) {
-              objects[objects.length] = {
-                name: _name,
-                value: _value
-              };
-            }
+            objects[objects.length] = {
+              name: _name,
+              value: fields[i].checked == true ? _value : ''
+            };
           } else {
             objects[objects.length] = {
               name: _name,

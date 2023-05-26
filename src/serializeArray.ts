@@ -30,7 +30,13 @@
                         const _arrFieldValue = [];
                         for (let j = 0; j < inputs.length; j++) {
                             const _arrField = inputs[j];
-                            _arrFieldValue.push(_arrField.value as never);
+
+                            //if checkbox or radio
+                            if ( _arrField.type === 'radio' || _arrField.type === 'checkbox' ) {
+                                _arrFieldValue.push((_arrField.checked == true ? _arrField.value : '') as never);
+                            } else {
+                                _arrFieldValue.push(_arrField.value as never);
+                            }
                         }
                         _value = _arrFieldValue;
 
@@ -39,12 +45,10 @@
                     
                     //if checkbox or radio
                     if ( fields[i].type === 'radio' || fields[i].type === 'checkbox' ) {
-                        if ( fields[i].checked === true ) {
-                            objects[objects.length] = {
-                                name: _name,
-                                value: _value
-                            };
-                        }
+                        objects[objects.length] = {
+                            name: _name,
+                            value: fields[i].checked == true ? _value : ''
+                        };
                     } else {
                         objects[objects.length] = {
                             name: _name,
