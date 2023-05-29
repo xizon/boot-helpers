@@ -6,7 +6,7 @@
  * @param  {Array} types   - An array of field strings.
  * @return {Array}     - A collection of JSON arrays
  */
- function serializeArray(this: any, types: string[] = ['input', 'textarea', 'select', 'checkbox', 'progress', 'datalist']) {
+function serializeArray(this: any, types: string[] = ['input', 'textarea', 'select', 'checkbox', 'progress', 'datalist']) {
     let res: any = [];
 
     this.each(function (this: any) {
@@ -30,13 +30,7 @@
                         const _arrFieldValue = [];
                         for (let j = 0; j < inputs.length; j++) {
                             const _arrField = inputs[j];
-
-                            //if checkbox or radio
-                            if ( _arrField.type === 'radio' || _arrField.type === 'checkbox' ) {
-                                _arrFieldValue.push((_arrField.checked == true ? _arrField.value : '') as never);
-                            } else {
-                                _arrFieldValue.push(_arrField.value as never);
-                            }
+                            _arrFieldValue.push(_arrField.value as never);
                         }
                         _value = _arrFieldValue;
 
@@ -45,10 +39,12 @@
                     
                     //if checkbox or radio
                     if ( fields[i].type === 'radio' || fields[i].type === 'checkbox' ) {
-                        objects[objects.length] = {
-                            name: _name,
-                            value: fields[i].checked == true ? _value : ''
-                        };
+                        if ( fields[i].checked === true ) {
+                            objects[objects.length] = {
+                                name: _name,
+                                value: _value
+                            };
+                        }
                     } else {
                         objects[objects.length] = {
                             name: _name,
